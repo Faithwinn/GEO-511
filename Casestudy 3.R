@@ -22,5 +22,21 @@ gapminder_continet <- Gapminder_filtered %>%
   group_by(continent, year) %>%
   summarize(gdpPercapweighted = weighted.mean(x = gdpPercap, w = pop))
 Gapminder_filtered$pop
+#trying to get pop to show 
 pop = sum(as.numeric(Gapminder_filtered$pop))
 pop
+
+View(gapminder_continet)
+#Plot 2(the first row of plots)
+
+
+ggplot(Gapminder_filtered, aes(x = year, y = gdpPercap, color = continent)) + 
+  geom_line(aes(group = country)) + 
+  geom_point() +
+  facet_wrap(~continent, nrow = 1) +
+  geom_line(data=gapminder_continet, aes(x = year, y =  gdpPercapweighted), color = "black") + 
+  geom_point(data=gapminder_continet, aes(x = year, y = gdpPercapweighted), color = "black") + 
+  theme_bw() + 
+  labs(x = "Year", y = "GDP Per Capital")
+
+                                                                                                                                   
