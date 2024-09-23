@@ -26,16 +26,25 @@ farthest_airport
 
 
 
-
+#SECOND TRY 
 
 farthest_airport <- flights %>%
   group_by(dest) %>%
-  summarize(max_distance = max(distance, na.rm = TRUE)) %>%
-  ungroup() %>%
-  slice_max(max_distance, n = 1) %>%
+  summarize(max_distance = max(distance, na.rm = TRUE)) %>% #calculate maximum distance and ignore na values
+  ungroup() %>% #removes grouping to work with whole dataset
+  slice_max(max_distance, n = 1) %>% #selects the maximum distance and only keeping one row
   left_join(airports, by = c("dest" = "faa")) %>%
   pull(name)
 
 print(farthest_airport)
 
 
+#Extra time 
+install.packages("ggplot2")
+install.packages("maps")
+library(ggplot2)
+library(maps)
+
+airports %>%
+  distinct(lon,lat) %>%
+  1
