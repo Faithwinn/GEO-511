@@ -34,9 +34,9 @@ farthest_airport <- flights %>%
   ungroup() %>% #removes grouping to work with whole dataset
   slice_max(max_distance, n = 1) %>% #selects the maximum distance and only keeping one row
   left_join(airports, by = c("dest" = "faa")) %>%
-  pull(name)
+  pull(name) #you can also use select
 
-print(farthest_airport)
+farthest_airport
 
 
 #Extra time 
@@ -48,3 +48,53 @@ library(maps)
 airports %>%
   distinct(lon,lat) %>%
   1
+
+
+
+#Try the mean delay 
+airport_delays <- flights %>% #find delays first
+  group_by(dest) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>% #na.rm to ignore na values 
+  inner_join(airports, by = c("dest" = "faa")) #inner join helps to add the lat and long. kinda need it for the map 
+#print results
+airport_delays
+
+#Create the plot 
+ggplot() +
+  borders("state") +
+  geom_point(data = airport_delays, 
+             aes(x = lon, y = lat, size = mean_delay, color = mean_delay)) +
+  scale_color_gradient(low = "green", high = "red") +
+  scale_size_continuous(range = c(1, 10)) +
+  coord_quickmap() +
+  labs(title = "Mean Arrival Delays by Destination Airport",
+       size = "Mean Delay (minutes)",
+       color = "Mean Delay (minutes)") +
+  theme_minimal() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Trying mean delay
+
+ggplot(airport_delays) + 
+  borders(database = "state") +
+  geom_point(aes(x = lon, y = lat, color = mean_delay), size = 2) +
+  scale_color_gradient(low = "red", high = "blue") + 
+  scale_size_continuous(range = c(1, 20)) + 
+  coord_quickmap() + 
+  labs(title = "Mean Arrival Delays by Destination Airport",
+       size = "Mean Delay (minutes)",
+       color = "Mean Delay (minutes)" ) +
+  theme_minimal()
+  
