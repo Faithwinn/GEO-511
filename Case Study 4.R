@@ -11,13 +11,13 @@ View(airports)
 
 # Join flights data with airports data to get full airport names
 flights_airports <- flights %>%
-  left_join(airports, by = c("dest" = "faa"))
+  left_join(airports, by = c("dest" = "faa")) #keeps the rows left of the airports column...like adding the full name and airports dest 
 
 # Find the farthest destination and get the full airport name
 farthest_airport <- flights_airports %>%
-  filter(!is.na(distance)) %>% #so no distance is invalid
-  arrange(desc(distance)) %>% #arrange in distance descending order 
-  slice(1) %>% #take the top result
+  filter(!is.na(distance)) %>% #to ignore the distance that are invalid
+  arrange(desc(distance)) %>% #arrange in distance descending order to find highest easily
+  slice(1) %>% #take only the top result
   pull(name) #extract airport name
 
 # Print the result
