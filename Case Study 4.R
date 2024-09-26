@@ -18,9 +18,9 @@ farthest_airport <- flights_airports %>%
   filter(!is.na(distance)) %>% #to ignore the distance that are invalid
   arrange(desc(distance)) %>% #arrange in distance descending order to find highest easily
   slice(1) %>% #take only the top result
-  pull(name) #extract airport name
+  pull(name) #extract airport name. can also use select 
 
-# Print the result
+# show the result
 farthest_airport
 
 
@@ -45,17 +45,21 @@ install.packages("maps")
 library(ggplot2)
 library(maps)
 
+#World Map 
 airports %>%
   distinct(lon,lat) %>%
-  1
+  ggplot(aes(lon, lat)) +
+  borders("world") +
+  geom_point(col="red") +
+  coord_quickmap()
 
 
-#Try the mean delay 
+#Mean arrival delays 
 airport_delays <- flights %>% #find delays first
   group_by(dest) %>%
-  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>% #na.rm to ignore na values 
-  inner_join(airports, by = c("dest" = "faa")) #inner join helps to add the lat and long. kinda need it for the map 
-#print results
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%    #na.rm to ignore na values 
+  inner_join(airports, by = c("dest" = "faa"))      #inner join helps to add the lat and long. kinda need it for the map 
+#show results
 airport_delays
 
 
@@ -70,8 +74,7 @@ ggplot(airport_delays) +
   scale_color_gradient2(low = muted("blue"),
                        mid = "white",
                        high = muted("brown"),
-                       midpoint = 0) + 
-  scale_size_continuous(range = c(1, 20)) + 
+                       midpoint = 0) +   #sets up a diverging color scale 
   coord_quickmap() + 
   labs(title = "Mean Arrival Delays by Destination Airport",
        size = "Mean Delay (minutes)",
