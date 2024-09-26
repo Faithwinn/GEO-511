@@ -50,7 +50,6 @@ airports %>%
   1
 
 
-
 #Try the mean delay 
 airport_delays <- flights %>% #find delays first
   group_by(dest) %>%
@@ -59,42 +58,24 @@ airport_delays <- flights %>% #find delays first
 #print results
 airport_delays
 
-#Create the plot 
-ggplot() +
-  borders("state") +
-  geom_point(data = airport_delays, 
-             aes(x = lon, y = lat, size = mean_delay, color = mean_delay)) +
-  scale_color_gradient(low = "green", high = "red") +
-  scale_size_continuous(range = c(1, 10)) +
-  coord_quickmap() +
-  labs(title = "Mean Arrival Delays by Destination Airport",
-       size = "Mean Delay (minutes)",
-       color = "Mean Delay (minutes)") +
-  theme_minimal() 
 
 
+library(scales)
 
-
-
-
-
-
-
-
-
-
-
-
-#Trying mean delay
+#Trying mean arrival delays plot
 
 ggplot(airport_delays) + 
   borders(database = "state") +
   geom_point(aes(x = lon, y = lat, color = mean_delay), size = 2) +
-  scale_color_gradient(low = "red", high = "blue") + 
+  scale_color_gradient2(low = muted("blue"),
+                       mid = "white",
+                       high = muted("brown"),
+                       midpoint = 0) + 
   scale_size_continuous(range = c(1, 20)) + 
   coord_quickmap() + 
   labs(title = "Mean Arrival Delays by Destination Airport",
        size = "Mean Delay (minutes)",
-       color = "Mean Delay (minutes)" ) +
+       color = "Mean Delay (minutes)",
+      legend = "mean delay"  ) +
   theme_minimal()
   
