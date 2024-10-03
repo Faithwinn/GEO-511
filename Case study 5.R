@@ -104,3 +104,47 @@ ggplot() +
   
   area_km2
   
+  
+  
+  
+  
+  
+  # Load required libraries
+  library(sf)
+  library(tidyverse)
+  library(spData)
+  library(units)
+  
+  # Load datasets
+  data(world)
+  data(us_states)
+  
+  # Extract New York and Canada first (to reduce data we're transforming)
+  ny <- us_states %>% 
+    filter(NAME == "New York")
+  
+  canada <- world %>%
+    filter(name_long == "Canada")
+  
+  # Only transform Canada to match NY's CRS
+  canada <- st_transform(canada, st_crs(ny))
+  
+  # Create 10km buffer around Canadian border
+  canada_buffer <- st_buffer(canada, dist = 10000)
+  
+  # Perform the intersection
+  ny_buffer <- st_intersection(ny, canada_buffer)
+  
+  # Define Albers projection for final area calculation if needed
+  albers <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+  
+  # Transform only the final intersection to Albers for accurate area calculation
+  ny_buffer_albers <- st_transform(ny_buffer, albers)
+  
+  # Calculate area
+  area_km2 <- st_area(ny_buffer_albers) %>%
+    set_units(km^2) %>%
+    round(2)
+  
+  print(paste("Area to defend from Canadians:", area_km2, "square kilometers")) 
+  
