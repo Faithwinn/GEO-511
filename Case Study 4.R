@@ -49,9 +49,9 @@ library(maps)
 airports %>%
   distinct(lon,lat) %>%
   ggplot(aes(lon, lat)) +
-  borders("world") +
+  borders("world") + #creates world map with points representing airport locations
   geom_point(col="red") +
-  coord_quickmap()
+  coord_quickmap() 
 
 
 #Mean arrival delays 
@@ -64,7 +64,7 @@ airport_delays
 
 
 
-library(scales)
+library(scales) #load the library to use advanced color function like muted
 
 #Trying mean arrival delays plot
 
@@ -74,7 +74,7 @@ ggplot(airport_delays) +
   scale_color_gradient2(low = muted("blue"),
                        mid = "white",
                        high = muted("brown"),
-                       midpoint = 0) +   #sets up a diverging color scale 
+                       midpoint = 0) +   #sets up a diverging color scale. Muted is used to soften the colors.  
   coord_quickmap() + 
   labs(title = "Mean Arrival Delays by Destination Airport",
        size = "Mean Delay (minutes)",
