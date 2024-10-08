@@ -25,7 +25,7 @@ plot(max_temp, main="Maximum Temperature")
 # Prepare world data
 # Remove Antarctica and convert to sf object for compatibility
 world_sf <- world %>%
-  filter(continent != "Antarctica") %>% #can you double equals too
+  filter(continent != "Antarctica") %>% 
   st_as_sf() # ensure the world data is in the correct format for analysis
 
 # Extract maximum temperatures for each country
