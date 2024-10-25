@@ -3,6 +3,7 @@ title: "Predicting Diabetes using machine learning models in R"
 author: Faithwin Gbadamosi
 date: "`r Sys.Date()`"
 format: gfm    
+
 ---
 
 # Introduction
@@ -28,7 +29,9 @@ This type of graphic could be produced and enhanced in R using ggplot.
 
 ## Example 2
 ![](https://www.kaggleusercontent.com/kf/196234644/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..KAEnfiHn9Xn73DsYTBAaCQ.EDVzNHgKrf4wKnU7tKL7cDu6MctUEOUlfoaL1vynbihpT3cEofEMIAkVcR5w6IZ_OGpv6DUMF17GQR5f6auYXcL1AQCA0SxFxxcidC1b9YB-g6g61Ex1-xJG4fnJwuvTUHOpkfUk1XsPQulNJhQ8q7Yz84Vfjas_djEq9xmg5Zf50FISHgaRJboqsZit7mIbX5eRGkkc6MXj1NZEl-H15IF3UxiGDImIpJ2oSv6rIs1_pbOxHqGCsuCYfDht4WEKIEe8pFEp4aAEo9LUunL4F8dcJn8WuZJ-fH2biRZ8-eWCkyqiYhU5hmscFBaDRqXjnLf1FtbSFKcZaJ-8YanZKhCKrzmdbaLFW0-GFJZwxCknv38_Z_B3R3rUh-WJFig8VrvqQkISRXebQoGuG46lxd3AHPBFfzhDt2tY0WJ9IhbPm0xSB8rBrWvGBujoUuP8Rglp5fF3tszHOfCwuNVWF6CxjA_VXJu-FiL-F2J5FSz-3N2-0eQAFif_QY4Yz3nouhMEFGd2-4AzhMyDeTabV1ZtNAoEIANPb5ji-pwyhvPdl8vG39RZWxEHwjIggNU9QyB6KDB9jjlYTctIHPaQrnTehvDpFVYFld7yMyGYR8zqz4788sehGKqF2rzKzk5f8jHc4EwajXV-xQcgiGvHfa5NDtOsmAmmdEoMwur--ythjW6dpdykM109_2KsnEXV.qUNkQIFUTlUeMPLkGW-wlQ/__results___files/__results___19_0.png)
+
 This is a correlation matrix that shows the relationship between different variables. It is from a similar study on Kaggle and can be recreated in R for my project. 
+
 ## Example 3
 ![](https://github.com/Aditya-Mankar/Diabetes-Prediction/blob/master/screenshot.jpg?raw=true)
 This is a screenshot from a project that predicted diabetes and created a web app using Flask which is a python micro framework. I thought this was interesting. 
