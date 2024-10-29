@@ -10,7 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
-install.packages("ggmap")
+```{r}
+#install.packages("ggmap")
 library(sf)
 library(tidyverse)
 library(ggmap)
@@ -18,16 +19,19 @@ library(spData)
 data(world)
 data(us_states)
 
-
-# Download a csv from noaa with storm track information
 ```
+
+# Download the csv from noaa with storm track information
+```{r}
 dataurl="https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NA.list.v04r01.csv"
 
 ```
 #Read the data into a csv file and view 
+
+```{r}
 storm_data <- read_csv(dataurl)
 View(storm_data)
-
+```
 
 # Step 2: Wrangle the data
 We have to create a new column with just the year using year(ISO_TIME)
@@ -41,6 +45,7 @@ storm_new <- storm_data %>%
   mutate(decade = floor(year / 10) * 10)         # Add decade column
 
 ```
+
 # Step 3: Convert data to sf object
 ```{r}
 storms <- st_as_sf(storm_new, coords = c("LON", "LAT"), crs = 4326)
@@ -55,7 +60,7 @@ Make the first plot
 
 ```{r}
 ggplot() +
-  geom_sf(data = world,fill = "grey80" ) +
+  geom_sf(data = world) +
   stat_bin2d(data = storms, aes(x = st_coordinates(storms)[,1], y = st_coordinates(storms)[,2]), bins = 100) +
   scale_fill_distiller(palette = "YlOrRd", trans = "log", direction = -1, breaks = c(1, 10, 100, 1000)) +
   facet_wrap(~decade) +
@@ -65,7 +70,7 @@ ggplot() +
 ```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-Now, we will calculate the top 5 states 
+# Now, we will calculate the top 5 states 
 ```{r}
 states <- us_states %>% 
   st_transform(st_crs(storms)) %>%   # Reproject to match storms data
@@ -73,7 +78,7 @@ states <- us_states %>%
 
 # Step 7: Perform spatial join to find storms within each state
 storm_states <- st_join(storms, states, join = st_intersects, left = FALSE) #This will ‘add’ the state to any storm that was recorded within that state.
-
+storm_states
 ```
 # Step 8: Summarize storm counts by state
 
@@ -83,12 +88,13 @@ storm_counts <- storm_states %>%
   summarize(storms = length(unique(NAME))) %>% #to count how many unique storms occurred in each state.
   arrange(desc(storms)) %>%
   slice(1:5)%>%  # Keep only top 5 states
-  select(state, storms)         # to select only state and storms columns
-
+  select(state, storms) %>%         # to select only state and storms columns
+  st_set_geometry(NULL)
 ```
 # View the table of the top 5 states
 
 ```{r}
-print(storm_counts)
+#print(storm_counts)
+storm_counts
 ```
 
