@@ -1,1 +1,1 @@
-This file contains R-code for the first case study in the GEO 511 Class. 
+This file contains R-code for the case studies for GEO 511 Class. 
