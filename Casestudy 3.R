@@ -47,4 +47,5 @@ ggplot(Gapminder_filtered, aes(x = year, y = gdpPercap, color = continent)) +
   labs( x = "Year", y = "GDP Per Capita", title = "Life Expectancy Over Time by Continent")
 
 View()
+
                                                                                                                                    
